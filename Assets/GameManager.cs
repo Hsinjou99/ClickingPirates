@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("Stats")]
@@ -13,6 +14,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI bpText;
     public GameObject brainPowerTextObject;
     public GameObject upgradeMenu;
+    public GameObject obeliskButton;
 
     [Header("Upgrades")]
     public TextMeshProUGUI upgrade1Text;
@@ -33,8 +35,45 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        brainPowerTextObject.SetActive(false);
-        upgradeMenu.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "ToolsEra")
+        {
+            brainPower = 0;
+            clickStrength = 100;
+            bpPerSecond = 0;
+            multiplier = 1f;
+
+            upgrade1Cost = 500;
+            upgrade2Cost = 2500;
+            upgrade3Cost = 5000;
+            upgrade4Cost = 20000;
+
+            menuThreshold = 0;
+            textThreshold = 0;
+            obeliskButton.SetActive(false);
+        }
+        else if (SceneManager.GetActiveScene().name == "AgriculturalEra")
+        {
+            brainPower = 0;
+            clickStrength = 1000;
+            bpPerSecond = 0;
+            multiplier = 1f;
+
+            upgrade1Cost = 5000;
+            upgrade2Cost = 25000;
+            upgrade3Cost = 50000;
+            upgrade4Cost = 200000;
+
+            menuThreshold = 0;
+            textThreshold = 0;
+        }
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Game")
+        {
+            brainPowerTextObject.SetActive(false);
+            upgradeMenu.SetActive(false);
+            obeliskButton.SetActive(false);
+        }
+        
         UpdateUI();
     }
 
@@ -47,6 +86,20 @@ public class GameManager : MonoBehaviour
             CheckThresholds();
         }
     }
+
+    public void TransitionToNextEra()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Game")
+        {
+            SceneManager.LoadScene("ToolsEra");
+        }
+        else if (currentScene == "ToolsEra")
+        {
+            SceneManager.LoadScene("AgriculturalEra");
+        }
+    }
+
     public void ClickAction()
     {
         brainPower += clickStrength * multiplier;
@@ -112,6 +165,20 @@ public class GameManager : MonoBehaviour
         if (brainPower >= menuThreshold)
         {
             upgradeMenu.SetActive(true);
+        }
+
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Game" && brainPower >= 1000)
+        {
+            obeliskButton.SetActive(true);
+        }
+         else if (currentScene == "ToolsEra" && brainPower >= 10000)
+        {
+            obeliskButton.SetActive(true);
+        }
+        else if (currentScene == "AgriculturalEra" && brainPower >= 100000)
+        {
+            SceneManager.LoadScene("Wheel");
         }
     }
     public void UpdateUI()
