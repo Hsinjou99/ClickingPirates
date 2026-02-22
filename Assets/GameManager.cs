@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
     [Header("Stats")]
     public double brainPower = 0;
     public int clickStrength = 1;
+    public TextMeshProUGUI clickStrengthText;
+    public TextMeshProUGUI bpPerSecondText;
     public double bpPerSecond = 0;
     public float multiplier = 1f;
     
@@ -15,6 +17,8 @@ public class GameManager : MonoBehaviour
     public GameObject brainPowerTextObject;
     public GameObject upgradeMenu;
     public GameObject obeliskButton;
+    public GameObject clickStrengthObject;
+    public GameObject bpPerSecondTextObject;
 
     [Header("Upgrades")]
     public TextMeshProUGUI upgrade1Text;
@@ -31,6 +35,12 @@ public class GameManager : MonoBehaviour
     [Header("Settings")]
     public double menuThreshold = 15;
     public double textThreshold = 10;
+    
+    [Header("Upgrade Names")]
+    public string upgrade1Name;
+    public string upgrade2Name;
+    public string upgrade3Name;
+    public string upgrade4Name;
 
     
     void Start()
@@ -72,6 +82,8 @@ public class GameManager : MonoBehaviour
             brainPowerTextObject.SetActive(false);
             upgradeMenu.SetActive(false);
             obeliskButton.SetActive(false);
+            clickStrengthObject.SetActive(false);
+            bpPerSecondTextObject.SetActive(false);
         }
         
         UpdateUI();
@@ -161,10 +173,13 @@ public class GameManager : MonoBehaviour
         if (brainPower >= textThreshold)
         {
             brainPowerTextObject.SetActive(true);
+
         }
         if (brainPower >= menuThreshold)
         {
             upgradeMenu.SetActive(true);
+	    clickStrengthObject.SetActive(true);
+            bpPerSecondTextObject.SetActive(true);
         }
 
         string currentScene = SceneManager.GetActiveScene().name;
@@ -185,10 +200,12 @@ public class GameManager : MonoBehaviour
     {
         bpText.text = "Brain Power: " + brainPower.ToString("F0");
 
-        if (upgrade1Text) upgrade1Text.text = $"Upgrade 1 ({upgrade1Cost.ToString("F0")} BP)";
-        if (upgrade2Text) upgrade2Text.text = $"Upgrade 2 ({upgrade2Cost.ToString("F0")} BP)";
-        if (upgrade3Text) upgrade3Text.text = $"Upgrade 3 ({upgrade3Cost.ToString("F0")} BP)";
-        if (upgrade4Text) upgrade4Text.text = $"Upgrade 4 ({upgrade4Cost.ToString("F0")} BP)";
+        if (upgrade1Text) upgrade1Text.text = $"{upgrade1Name} ({upgrade1Cost.ToString("F0")} BP)";
+        if (upgrade2Text) upgrade2Text.text = $"{upgrade2Name} ({upgrade2Cost.ToString("F0")} BP)";
+        if (upgrade3Text) upgrade3Text.text = $"{upgrade3Name} ({upgrade3Cost.ToString("F0")} BP)";
+        if (upgrade4Text) upgrade4Text.text = $"{upgrade4Name} ({upgrade4Cost.ToString("F0")} BP)";
+        if (clickStrength >= 0) clickStrengthText.text = $"Click Pow = ({clickStrength.ToString("F0")} BP/Click)";
+        if (bpPerSecond >= 0) bpPerSecondText.text = $"Idle Pow = ({bpPerSecond.ToString("F0")} BP/Second)";
     }
 }
 
