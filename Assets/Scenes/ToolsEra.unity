@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 349272646}
   - component: {fileID: 349272645}
   m_Layer: 5
-  m_Name: Image
+  m_Name: ObeliskButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2451,6 +2451,7 @@ MonoBehaviour:
   bpText: {fileID: 819023269}
   brainPowerTextObject: {fileID: 819023267}
   upgradeMenu: {fileID: 808004438}
+  obeliskButton: {fileID: 349272643}
   upgrade1Text: {fileID: 40190201}
   upgrade2Text: {fileID: 1378915126}
   upgrade3Text: {fileID: 1379290404}

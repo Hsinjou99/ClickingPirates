@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI bpText;
     public GameObject brainPowerTextObject;
     public GameObject upgradeMenu;
+    public GameObject obeliskButton;
 
     [Header("Upgrades")]
     public TextMeshProUGUI upgrade1Text;
@@ -70,6 +71,7 @@ public class GameManager : MonoBehaviour
             brainPowerTextObject.SetActive(false);
             upgradeMenu.SetActive(false);
         }
+        obeliskButton.SetActive(false);
         UpdateUI();
     }
 
@@ -162,6 +164,20 @@ public class GameManager : MonoBehaviour
         {
             upgradeMenu.SetActive(true);
         }
+
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Game" && brainPower >= 1000)
+        {
+            obeliskButton.SetActive(true);
+        }
+         else if (currentScene == "ToolsEra" && brainPower >= 10000)
+        {
+            obeliskButton.SetActive(true);
+        }
+        //  else if (currentScene == "AgriculturalEra" && brainPower >= 100000)
+        // {
+        //     // reveal the winning scene
+        // }
     }
     public void UpdateUI()
     {
