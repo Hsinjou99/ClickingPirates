@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("Stats")]
@@ -33,7 +34,38 @@ public class GameManager : MonoBehaviour
     
     void Start()
     {
-        brainPowerTextObject.SetActive(false);
+        if (SceneManager.GetActiveScene().name == "ToolsEra")
+        {
+            brainPower = 0;
+            clickStrength = 100;
+            bpPerSecond = 0;
+            multiplier = 1f;
+
+            upgrade1Cost = 500;
+            upgrade2Cost = 2500;
+            upgrade3Cost = 5000;
+            upgrade4Cost = 20000;
+
+            menuThreshold = 0;
+            textThreshold = 0;
+        }
+        else if (SceneManager.GetActiveScene().name == "AgriculturalEra")
+        {
+            brainPower = 0;
+            clickStrength = 1000;
+            bpPerSecond = 0;
+            multiplier = 1f;
+
+            upgrade1Cost = 5000;
+            upgrade2Cost = 25000;
+            upgrade3Cost = 50000;
+            upgrade4Cost = 200000;
+
+            menuThreshold = 0;
+            textThreshold = 0;
+        }
+
+            brainPowerTextObject.SetActive(false);
         upgradeMenu.SetActive(false);
         UpdateUI();
     }
@@ -47,6 +79,20 @@ public class GameManager : MonoBehaviour
             CheckThresholds();
         }
     }
+
+    public void TransitionToNextEra()
+    {
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Game")
+        {
+            SceneManager.LoadScene("ToolsEra");
+        }
+        else if (currentScene == "ToolsEra")
+        {
+            SceneManager.LoadScene("AgriculturalEra");
+        }
+    }
+
     public void ClickAction()
     {
         brainPower += clickStrength * multiplier;
