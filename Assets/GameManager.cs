@@ -4,8 +4,10 @@ public class GameManager : MonoBehaviour
 {
     [Header("Stats")]
     public double brainPower = 0;
+    public int clickStrength = 1;
     public double bpPerSecond = 0;
     public float multiplier = 1f;
+    
 
     [Header("Objects")]
     public TextMeshProUGUI bpText;
@@ -13,12 +15,14 @@ public class GameManager : MonoBehaviour
     public GameObject upgradeMenu;
 
     [Header("Upgrades")]
+    public TextMeshProUGUI upgrade1Text;
     public TextMeshProUGUI upgrade2Text;
     public TextMeshProUGUI upgrade3Text;
     public TextMeshProUGUI upgrade4Text;
 
     [Header("Upgrade Costs")]
-    public double upgrade2Cost = 10;
+    public double upgrade1Cost = 5;
+    public double upgrade2Cost = 25;
     public double upgrade3Cost = 50;
     public double upgrade4Cost = 200;
 
@@ -26,7 +30,7 @@ public class GameManager : MonoBehaviour
     public double menuThreshold = 15;
     public double textThreshold = 10;
 
-    public int clickStrength = 1;
+    
     void Start()
     {
         brainPowerTextObject.SetActive(false);
@@ -45,9 +49,21 @@ public class GameManager : MonoBehaviour
     }
     public void ClickAction()
     {
-        brainPower += clickStrength;
+        brainPower += clickStrength * multiplier;
         UpdateUI();
         CheckThresholds();
+    }
+
+    // Upgrade 1 function: increase click strength
+    public void BuyUpgrade1()
+    {
+        if (brainPower >= upgrade1Cost)
+        {
+            brainPower -= upgrade1Cost;
+            clickStrength++;
+            upgrade1Cost *= 1.5f;
+            UpdateUI();
+        }
     }
 
     // Upgrade 2 function: passive income
@@ -57,7 +73,7 @@ public class GameManager : MonoBehaviour
         {
             brainPower -= upgrade2Cost;
             bpPerSecond += 2;
-            upgrade2Cost *= 2;
+            upgrade2Cost *= 3;
             UpdateUI();
         }
     }
@@ -68,7 +84,21 @@ public class GameManager : MonoBehaviour
         {
             brainPower -= upgrade3Cost;
             multiplier += 0.5f;
-            upgrade3Cost *= 3;
+            upgrade3Cost *= 4;
+            UpdateUI();
+        }
+    }
+
+    // Upgrade 4 function: cut costs
+    public void BuyUpgrade4()
+    {
+        if (brainPower >= upgrade4Cost)
+        {
+            brainPower -= upgrade4Cost;
+            upgrade1Cost /= 2;
+            upgrade2Cost /= 2;
+            upgrade3Cost /= 2;
+            upgrade4Cost = double.PositiveInfinity; // Make it unpurchasable after one purchase
             UpdateUI();
         }
     }
@@ -88,8 +118,10 @@ public class GameManager : MonoBehaviour
     {
         bpText.text = "Brain Power: " + brainPower.ToString("F0");
 
+        if (upgrade1Text) upgrade1Text.text = $"Upgrade 1 ({upgrade1Cost.ToString("F0")} BP)";
         if (upgrade2Text) upgrade2Text.text = $"Upgrade 2 ({upgrade2Cost.ToString("F0")} BP)";
         if (upgrade3Text) upgrade3Text.text = $"Upgrade 3 ({upgrade3Cost.ToString("F0")} BP)";
+        if (upgrade4Text) upgrade4Text.text = $"Upgrade 4 ({upgrade4Cost.ToString("F0")} BP)";
     }
 }
 
