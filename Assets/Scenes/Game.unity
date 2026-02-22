@@ -2083,7 +2083,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b7d4f84cb29dd74d92dd268d5c85ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  countText: {fileID: 819023269}
+  brainPower: 0
+  bpText: {fileID: 819023269}
+  brainPowerTextObject: {fileID: 819023267}
+  upgradeMenu: {fileID: 808004438}
+  menuThreshold: 15
+  textThreshold: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
