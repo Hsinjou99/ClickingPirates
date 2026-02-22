@@ -29,7 +29,10 @@ public class GameManager : MonoBehaviour
     [Header("Settings")]
     public double menuThreshold = 15;
     public double textThreshold = 10;
-
+    
+    [Header("Audio")]
+    public AudioSource audioSource;
+    public AduioClip clickSound;
     
     void Start()
     {
@@ -49,6 +52,10 @@ public class GameManager : MonoBehaviour
     }
     public void ClickAction()
     {
+    	if (audioSource != null && clickSound != null)
+    	{
+    		audioSource.PlayOneShot(clickSound);
+    	}
         brainPower += clickStrength * multiplier;
         UpdateUI();
         CheckThresholds();
