@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // upgrade 3: multiplier
+
     void CheckThresholds()
     {
         if (brainPower >= textThreshold)
