@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
 
             menuThreshold = 0;
             textThreshold = 0;
+            obeliskButton.SetActive(false);
         }
         else if (SceneManager.GetActiveScene().name == "AgriculturalEra")
         {
@@ -70,8 +71,9 @@ public class GameManager : MonoBehaviour
         {
             brainPowerTextObject.SetActive(false);
             upgradeMenu.SetActive(false);
+            obeliskButton.SetActive(false);
         }
-        obeliskButton.SetActive(false);
+        
         UpdateUI();
     }
 
@@ -174,10 +176,10 @@ public class GameManager : MonoBehaviour
         {
             obeliskButton.SetActive(true);
         }
-        //  else if (currentScene == "AgriculturalEra" && brainPower >= 100000)
-        // {
-        //     // reveal the winning scene
-        // }
+        else if (currentScene == "AgriculturalEra" && brainPower >= 100000)
+        {
+            SceneManager.LoadScene("Wheel");
+        }
     }
     public void UpdateUI()
     {
