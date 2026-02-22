@@ -64,9 +64,12 @@ public class GameManager : MonoBehaviour
             menuThreshold = 0;
             textThreshold = 0;
         }
-
+        string currentScene = SceneManager.GetActiveScene().name;
+        if (currentScene == "Game")
+        {
             brainPowerTextObject.SetActive(false);
-        upgradeMenu.SetActive(false);
+            upgradeMenu.SetActive(false);
+        }
         UpdateUI();
     }
 
