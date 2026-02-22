@@ -7,8 +7,10 @@ public class ClickerUpgrade : MonoBehaviour
     public TMP_Text priceText;
     public TMP_Text strengthInfoText;
 
+    [Header("Managers")]
+    public GameManager gameManager;
 
-    public int startPrice = 10;
+    public int price = 10;
     public float priceMultiplier;
 
     int level = 0;
@@ -17,15 +19,29 @@ public class ClickerUpgrade : MonoBehaviour
     {
         UpdateUI();
     }
+
+    public void ClickAction()
+    {
+        int newPrice = CalculatePrice();
+        if (gameManager.brainPower >= newPrice)
+        {
+            gameManager.brainPower -= newPrice;
+            level++;
+            gameManager.clickStrength++;
+            price = newPrice;
+            UpdateUI();
+            gameManager.UpdateUI();
+        }
+    }
     void UpdateUI()
     {
         priceText.text = CalculatePrice().ToString();
-        strengthInfoText.text = (level + 1).ToString();
+        strengthInfoText.text = "Strength: +" + level.ToString();
     }
 
     int CalculatePrice()
     {
-        return Mathf.RoundToInt(startPrice * Mathf.Pow(priceMultiplier, level));
+        return price * 2;
     }
 }
 
