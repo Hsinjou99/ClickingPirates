@@ -41,7 +41,7 @@ public class ClickerUpgrade : MonoBehaviour
 
     int CalculatePrice()
     {
-        return price * 2;
+        return (int) (price * 1.2);
     }
 }
 
