@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     public double menuThreshold = 15;
     public double textThreshold = 10;
 
+    public int clickStrength = 1;
     void Start()
     {
         brainPowerTextObject.SetActive(false);
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
 
     public void ClickAction()
     {
-        brainPower += 1;
+        brainPower += clickStrength;
         UpdateUI();
         CheckThresholds();
     }
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
             upgradeMenu.SetActive(true);
         }
     }
-    void UpdateUI()
+    public void UpdateUI()
     {
         bpText.text = "Brain Power: " + brainPower.ToString("F0");
     }
