@@ -204,8 +204,8 @@ public class GameManager : MonoBehaviour
         if (upgrade2Text) upgrade2Text.text = $"{upgrade2Name} ({upgrade2Cost.ToString("F0")} BP)";
         if (upgrade3Text) upgrade3Text.text = $"{upgrade3Name} ({upgrade3Cost.ToString("F0")} BP)";
         if (upgrade4Text) upgrade4Text.text = $"{upgrade4Name} ({upgrade4Cost.ToString("F0")} BP)";
-        if (clickStrength <= 0) clickStrengthText.text = $"Click Pow = ({clickStrength.ToString("F0")} BP/Click)";
-        if (bpPerSecond <= 0) bpPerSecondText.text = $"Idle Pow = ({bpPerSecond.ToString("F0")} BP/Second)";
+        if (clickStrength >= 0) clickStrengthText.text = $"Click Pow = ({clickStrength.ToString("F0")} BP/Click)";
+        if (bpPerSecond >= 0) bpPerSecondText.text = $"Idle Pow = ({bpPerSecond.ToString("F0")} BP/Second)";
     }
 }
 
